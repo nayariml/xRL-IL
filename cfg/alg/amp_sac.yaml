@@ -1,0 +1,37 @@
+defaults:
+  - actor_critic.yaml
+  - _self_
+
+name: "AMPSAC"
+
+# SAC
+num_interac_per_env: 24
+memory_size: 10e6
+batch_size: 8192
+update_times: 4
+nstep: 3
+tau: 0.05
+gamma: 0.97
+alpha_lr: 0.001
+alpha: null
+
+actor_class: TanhDiagGaussian
+act_hidden_layers: [1024, 512]
+act_activation: "silu"
+
+critic_class: TwinQ
+cri_hidden_layers: [1024, 512]
+cri_activation: "silu"
+
+# AMP discriminator
+num_preload_transitions: 2000000  # expert motion frames loaded into memory at init
+disc_hidden_dims: [512, 256]
+
+disc_reward_weight: 0.4           # blend ratio between style reward and task reward
+disc_reward_scale: 1.0            # multiplicative scale applied to the style reward
+
+disc_loss_type: bce               # lsgan | bce
+disc_grad_penalty: 25.0           # gradient penalty coefficient λ
+discr_loss_coef: 0.05             # weight of discriminator classification loss in total_reg
+grad_pen_loss_coef: 0.01          # weight of gradient penalty loss in total_reg
+disc_logit_reg_coef: 0.05         # weight of style_head L2 penalty (BCE only)

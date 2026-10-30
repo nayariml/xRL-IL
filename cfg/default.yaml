@@ -1,0 +1,32 @@
+defaults:
+  - alg: amp_sac
+  - logging: default
+  - _self_
+
+hydra:
+  searchpath:
+    - pkg://xRL/cfg
+
+env_name: go2_ampoff     # go2_ampoff | go2_ampoff_terrain
+
+device: 'cuda'
+device_id: 0
+rl_buffer_device: 'cpu'  # 10e6 buffer OOMs the GPU
+
+num_envs: 8192
+seed: 42
+headless: True
+
+max_time: null           # [s]
+max_step: null
+max_iterations: 200000
+
+warm_up: 200
+save_interval: 5000
+artifact: null           # .pth or run dir
+
+tracking_training:
+  wandb: True
+  upload_artifacts: False  # upload checkpoints to W&B, they are always saved locally
+
+log_freq: 1

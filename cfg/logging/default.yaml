@@ -1,0 +1,6 @@
+wandb:
+  project: xRL
+  entity: null       # wandb username or team name (null = personal account)
+  group: null        # run group for sweeps / experiments
+  tags: []           # list of string tags, e.g. [go2, amp, rough]
+  dir: null          # run files and artifact staging (null = under $HOME), e.g. /fscratch/${oc.env:USER}/wandb
